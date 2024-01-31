@@ -21,13 +21,13 @@ const UserSchema = new mongoose.Schema(
             unique: true,
         },
         password: {
-            typr: String,
+            type: String,
             require: true,
             min: 5,
         },
         picturePath: {
             type: String,
-            required: true,
+            require: true,
             min: 5,
             default: "",
         },
