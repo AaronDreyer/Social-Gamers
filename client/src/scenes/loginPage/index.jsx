@@ -25,7 +25,7 @@ const LoginPage = () => {
             p="2rem"
             m="2rem auto"
             borderRadius="1.5rem"
-            backroundColor={theme.palette.background.alt}>
+            backgroundColor={theme.palette.background.alt}>
                 <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem"}}>
                     Welcome to Social-Gamers! the Social Media App for Gamers!
                 </Typography>
