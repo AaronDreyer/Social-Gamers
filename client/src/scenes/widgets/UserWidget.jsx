@@ -79,6 +79,7 @@ const UserWidget = ({ userId, picturePath }) => {
                     
                 </FlexBetween>
                 <ManageAccountsOutlined />
+                </FlexBetween>
 
                 <Divider />
 
@@ -95,6 +96,8 @@ const UserWidget = ({ userId, picturePath }) => {
                     </Box>
                 </Box>
 
+                <Divider />
+
                 {/* THIRD ROW */}
 
                 <Box p="1rem 0">
@@ -107,6 +110,8 @@ const UserWidget = ({ userId, picturePath }) => {
                         <Typography color={medium} fontWeight="500">{impressions}</Typography>
                     </FlexBetween>
                 </Box>
+
+                <Divider />
 
                 {/* FOURTH ROW */}
                 <Box p="1rem 0">
@@ -144,7 +149,7 @@ const UserWidget = ({ userId, picturePath }) => {
                     </FlexBetween>
 
                 </Box>
-            </FlexBetween>
+            
         </WidgetWrapper>
     )
 };
