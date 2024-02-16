@@ -55,12 +55,15 @@ const Form = () => {
     const isRegister = pageType === "register";
     
     const register = async (values, onSubmitProps) => {
+        console.log("Before fetch");
         // this allows us to send form info with image
         const formData = new FormData();
         for (let value in values) {
             formData.append(value, values[value])
         }
         formData.append('picturePath', values.picture.name)
+
+        console.log("FormData:", formData);
 
         const savedUserResponse = await fetch(
             "http://localhost:3001/auth/register",
@@ -69,6 +72,15 @@ const Form = () => {
                 body: formData,
             }
         );
+
+        if (!savedUserResponse.ok) {
+            console.error("Error registering user:", savedUserResponse.statusText);
+            // Handle the error appropriately
+            return;
+        }
+
+        console.log("After fetch");
+
         const savedUser = await savedUserResponse.json();
         onSubmitProps.resetForm();
 
@@ -78,14 +90,22 @@ const Form = () => {
     };
 
     const login = async (values, onSubmitProps) => {
+        console.log("Login Request Payload:", values);
         const loggedInResponse = await fetch(
             "http://localhost:3001/auth/login",
             {
                 method: "POST",
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values),
             }
         );
+
+        if (!loggedInResponse.ok) {
+            console.error("Error logging in:", loggedInResponse.statusText);
+            // Handle the error appropriately
+            return;
+        }
+        
         const loggedIn = await loggedInResponse.json();
         onSubmitProps.resetForm();
         if (loggedIn) {
@@ -99,7 +119,7 @@ const Form = () => {
         }
     }
 
-    const handleFormSubmit = async(values, onSubmitProps) => {
+    const handleFormSubmit = async (values, onSubmitProps) => {
         if (isLogin) await login(values, onSubmitProps);
         if (isRegister) await register(values, onSubmitProps);
     };
@@ -181,7 +201,7 @@ const Form = () => {
                                 acceptedFiles=".jpg,.jpeg,.png"
                                 multiple={false}
                                 onDrop={(acceptedFiles) =>
-                                setFieldValue("picture", acceptedFiles[0])
+                                setFieldValue("picture", acceptedFiles[0] || "")
                             }
                                 >
                                     {({ getRootProps, getInputProps }) => (
@@ -260,7 +280,7 @@ const Form = () => {
                                 color: palette.primary.light,
                             },
                         }}>
-                            {isLogin ? "Don't have an account? Sign Up here." : "Already have an account? Lgin here."}
+                            {isLogin ? "Don't have an account? Sign Up here." : "Already have an account? Login here."}
                         </Typography>
                     </Box>
                 </form>
